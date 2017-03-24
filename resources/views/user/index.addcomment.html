@@ -1,0 +1,134 @@
+{include file="page_header"}
+
+<section class="product-list product-list-small">
+	<ul>
+		<li>
+			<div class="product-div">
+				<a class="product-div-link" href="{U('goods/index/index',array('id'=>$goods_info.goods_id))}"></a>
+				<img class="product-list-img" src="{$goods_info.goods_img}">
+                              
+				<div class="product-text">
+					<h4>{$goods_info.goods_name}</h4>
+					<p class="t-remark">{$goods_info.goods_attr}</p>
+                    <p class="fl"><span class="p-price t-first ">{$goods_info.shop_price}</span></p>
+				</div>
+			</div>
+		</li>
+	</ul>
+</section>
+
+<form id="subform" enctype="multipart/form-data" method="post" action="">
+	<div class="page">
+		<section class="m-top06 padding-all b-color-f">
+			<div class="dis-box position-rel evaluation-all">
+				<label class="t-remark g-t-temark">评价</label>
+				<div class="evaluation-all-r j-evaluation-star">
+					<span class="evaluation-star ts-3 active"> <i class="iconfont icon-wujiaoxing"></i></span>
+					<span class="evaluation-star ts-3 active"> <i class="iconfont icon-wujiaoxing"></i></span>
+					<span class="evaluation-star ts-3 active"> <i class="iconfont icon-wujiaoxing"></i></span>
+					<span class="evaluation-star ts-3 active"> <i class="iconfont icon-wujiaoxing"></i></span>
+					<span class="evaluation-star ts-3 active"> <i class="iconfont icon-wujiaoxing"></i></span>
+					<input class="j-evaluation-value" type="hidden" name="comment_rank" value="5">
+				</div>
+			</div>
+		</section>
+		<section class="m-top1px padding-all b-color-f">
+			<div class="text-area1">
+				<textarea rows="4" maxlength="100" placeholder="填写评论内容 (0-100字)" name="content"></textarea>
+				<span>100</span>
+			</div>
+		</section>
+		<div class="page__bd">
+			<div class="weui-gallery" id="gallery">
+				<span class="weui-gallery__img" id="galleryImg"></span>
+				<div class="weui-gallery__opr">
+					<a href="javascript:" class="weui-gallery__del galleryDel">
+						<i class="weui-icon-delete weui-icon_gallery-delete"></i>
+					</a>
+				</div>
+			</div>
+			<div class="weui-cells weui-cells_form">
+				<div class="weui-cell">
+					<div class="weui-cell__bd">
+						<div class="weui-uploader">
+							<div class="weui-uploader__hd">
+								<p class="weui-uploader__title">图片上传 <span class="t-remark3">支持选择多张图片</span></p>
+								<div class="weui-uploader__info"><span class="img_selected">0/4</span></div>
+							</div>
+							<div class="weui-uploader__bd">
+								<ul class="weui-uploader__files" id="uploaderFiles">
+								</ul>
+								<div class="weui-uploader__input-box">
+									<input id="uploaderInput" name="photo[]" class="weui-uploader__input" type="file" accept="image/*" multiple />
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="ect-button-more padding-all">
+		<a href="javascript:;" onclick="document.getElementById('subform').submit();" class="btn-submit box-flex">提交评论</a>
+	</div>
+	<input type="hidden" name="order_id" value="{$order_id}">
+	<input type="hidden" name="goods_id" value="{$goods_id}">
+	<input type="hidden" name="rec_id" value="{$rec_id}">
+</form>
+
+<script type="text/javascript">
+	$(function(){
+		var tmpl = '<li class="weui-uploader__file item-#index#" data-index="#index#" style="background-image:url(#url#)"></li>',
+				$gallery = $("#gallery"),
+				$galleryImg = $("#galleryImg"),
+				$uploaderInput = $("#uploaderInput"),
+				$uploaderFiles = $("#uploaderFiles"),
+				allowImg = 4;
+				selectedImg = 0;
+				firstChange = true;
+
+		$uploaderInput.on("change", function(e){ 
+			if(! firstChange) return false; 
+			var src, url = window.URL || window.webkitURL || window.mozURL, files = e.target.files;
+			$uploaderFiles.empty();
+			for (var i = 0, len = files.length; i < len; ++i) {
+				var file = files[i];
+
+				if (url) {
+					src = url.createObjectURL(file);
+				} else {
+					src = e.target.result;
+				}
+
+				$uploaderFiles.append($(tmpl.replace('#url#', src).replace(/#index#/g, i)));
+
+				selectedImg++;
+
+				if((i + 1) >= allowImg) break;
+			}
+			$('.img_selected').html(selectedImg + '/' + allowImg);
+			firstChange = false;
+			$('.weui-uploader__input-box').hide();
+		});
+		$uploaderFiles.on("click", "li", function(){
+			$galleryImg.attr("style", this.getAttribute("style"));
+			$galleryImg.attr("data-index", this.getAttribute("data-index"));
+			$gallery.fadeIn(100);
+		});
+		$gallery.on("click", function(){
+			$gallery.fadeOut(100);
+		});
+		$('.galleryDel').on('click', function(){
+			var index = $galleryImg.attr("data-index");
+			$uploaderFiles.find('.item-' + index).remove();
+			selectedImg = $uploaderFiles.children('li').length;
+			$('.img_selected').html(selectedImg + '/' + allowImg);
+			if(selectedImg <= 0){
+				$('.weui-uploader__input-box').show();
+			}
+		})
+	});
+</script>
+
+</body>
+</html>

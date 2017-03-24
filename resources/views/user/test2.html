@@ -1,0 +1,171 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>UI组件之浮出层</title>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <style>
+        html, body, h3, section, article, button, span {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            width: 100%;
+            height: 100%;
+            /*background-color: palevioletred;*/
+        }
+
+        .onpage {
+            height: 2000px;
+            background: beige;
+        }
+
+        .fc {
+            position: absolute;
+            width: 80%;
+            /*border: 1px solid #333333;*/
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            font-size:16px;
+        }
+
+        .shade {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, .6);
+        }
+
+        .fc {
+            display: none;
+            position: fixed;
+
+        }
+
+        .fc h3 {
+            background: rgb(236,81,81);
+            color:#fff;
+            text-align: center;
+            font-size:14px;
+        }
+
+        .confirm_btn {
+            /*position: absolute;*/
+            /*bottom: 0px;*/
+            /*right: 0px;*/
+            width: 100%;
+
+        }
+
+        .confirm_btn span {
+            /*display: inline-block;*/
+            font-size:14px;
+            float: left;
+            width: 50%;
+            height: 2em;
+            line-height: 2em;
+            border-top: 1px solid #333333;
+            text-align: center;
+            box-sizing: border-box;
+            background: rgb(236,81,81);
+            color:#fff;
+            cursor: pointer;
+            /*height: 50%;*/
+        }
+
+        .bl {
+            border-left: 1px solid #333333;
+        }
+
+        .conent {
+            font-size: 15px;
+
+            text-align: center;
+            height: 60px;
+            line-height: 60px;
+            overflow: scroll;
+        }
+        .onpage {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+
+
+<div class="onpage">
+    <button class="tanchu">弹出弹出层</button>
+
+</div>
+<div class="shade">
+</div>
+
+<!--付出层解耦-->
+<article class="fc" id="fc">
+    <h3>提示</h3>
+    <section class="conent">
+        弹出弹出层弹出弹出层弹出弹出层弹出弹出层弹出弹出层弹出弹出层弹出弹出层弹出弹出层
+        弹出弹出层弹出弹出层弹出弹出层弹出弹出层弹出弹出层弹出弹出层弹出弹出层弹出弹出层
+
+        弹出弹出层弹出弹出层弹出弹出层弹出弹出层弹出弹出层弹出弹出层弹出弹出层弹出弹出层
+        弹出弹出层弹出弹出层弹出弹出层弹出弹出层弹出弹出层弹出弹出层弹出弹出层弹出弹出层
+
+
+    </section>
+    <div class="confirm_btn">
+        <span class="sure">确定</span>
+        <span class="bl cancle">取消</span>
+    </div>
+</article>
+<script>
+    var shade = document.querySelector(".shade");
+    var fc = document.querySelector(".fc");
+    var tanchu = document.querySelector(".tanchu");
+    var sure=document.querySelector(".sure");
+    var cancle=document.querySelector(".cancle");
+    var content=document.querySelector(".conent");
+    //点击之后先弹出框
+    var   issure=false;
+    function emersion(text){
+        shade.style.display = "block";
+        fc.style.display = "block";
+        content.innerHTML=text;
+        document.querySelector("body").setAttribute("class", 'hide');
+        shade.onclick = function () {
+            issure=false;
+            emersionend();
+            console.log(issure)
+        };
+        sure.onclick=function(){
+            issure=true;
+            emersionend();
+            console.log(issure)
+
+        }
+        cancle.onclick=function(){
+            issure=false;
+            emersionend(false);
+            console.log(issure)
+        }
+    }
+    function emersionend(){
+        shade.style.display = "none";
+        fc.style.display = "none";
+        document.querySelector("body").removeAttribute("class", 'hide');
+
+    }
+    tanchu.onclick =function(){
+        emersion('你好');
+    }
+</script>
+</body>
+</html>

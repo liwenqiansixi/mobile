@@ -1,0 +1,36 @@
+{include file="page_header"}
+		<div class="con">
+            {if count($account_log)>0}
+		
+            
+            
+            <section class=" j-f-tel padding-lr b-color-f">
+                      {foreach $account_log as $item}
+					<div class="text-all dis-box j-text-all b-color-f card-div">
+						<div>
+							{if $item.short_change_desc_part1}
+							<p>{$item.short_change_desc_part1}</p>
+							<p>{$item.short_change_desc_part2}</p>
+							{else}
+							<p>{$item.short_change_desc}</p>
+							{/if}
+							<span>{$item.change_time}</span>
+						</div>
+						<div class="box-flex input-text text-right"><span class="t-remark">{$item.amount}</span></div>
+					</div>
+			{/foreach}	
+		</section>
+            
+            
+            
+             {else}
+                <div class="no-div-message">
+                    <i class="iconfont icon-biaoqingleiben"></i>
+                    <p>亲，此处没有内容～！</p>
+                </div>
+             {/if}
+
+		</div>
+	</body>
+
+</html>

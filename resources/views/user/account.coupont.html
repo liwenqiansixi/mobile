@@ -1,0 +1,75 @@
+{include file="page_header"}
+<div class="con">
+    <div class="flow-coupon user-coupon">
+        <nav class="tab-title b-color-f of-hidden">
+            <ul class="dis-box">
+                <li class="box-flex {if empty($status)}active{/if}"><a status="0">未使用</a></li>
+                <li class="box-flex {if $status ==1}active{/if}"><a status="1">已使用</a></li>
+                <li class="box-flex {if $status == 2}active{/if}"><a status="2">已过期</a></li>
+            </ul>
+        </nav>
+        <div id="j-tab-con" class="tab-con">
+            <div class="swiper-wrapper">
+                <section class="swiper-slide store_info">
+                    <script id="j-product" type="text/html">
+                        <%if coupons_list.tab !=''%>
+                            <ul class="padding-all">
+                                <%each coupons_list.tab as order%>
+                                    <li class="big-remark-all">
+                                        <div class="dis-box position-rel">
+                                            <a href="#" class="product-div-link"></a>
+                                            <div class="remark-all temark-1 tb-lr-center">
+                                                <span class="b-r-a-price"><sup>¥</sup><%#order.cou_money%></span>
+                                            </div>
+                                            <div class="box-flex b-color-f padding-all position-rel">
+                                                <h4><%order.cou_name%></h4>
+                                                <p class="t-first">满
+                                                    <%#order.cou_man%>元 送
+                                                        <%#order.cou_money%>元</p>
+                                                <p class="t-remark">
+                                                    <%order.begintime%>--
+                                                        <%order.endtime%>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <%/each%>
+                            </ul>
+                            <%else%>
+                                <div class="no-div-message">
+                                    <i class="iconfont icon-biaoqingleiben"></i>
+                                    <p>亲，还没有优惠券哦～！</p>
+                                </div>
+                                <%/if%>
+                    </script>
+                </section>
+            </div>
+        </div>
+    </div>
+    </body>
+    <script type="text/javascript">
+
+        $(".j-tab-title li").on('touchstart mousedown', function(e) {
+            e.preventDefault()
+            $(".j-tab-title .active").removeClass('active')
+            $(this).addClass('active')
+            tabsSwiper.slideTo($(this).index())
+        })
+        $(".j-tab-title li").click(function(e) {
+            e.preventDefault()
+        })
+
+        //列表
+        var infinite = $('.store_info').infinite({
+            url: "{url('user/account/coupont')}",
+            template: 'j-product',
+            params: 'status={$status}'
+        });
+        $(".tab-title a").click(function() {
+            var status = $(this).attr('status');
+            infinite.onload('status=' + status);
+            $(this).parent().addClass("active").siblings().removeClass("active");
+        })
+    </script>
+
+    </html>

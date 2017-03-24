@@ -1,0 +1,178 @@
+{include file="page_header"}
+		<section class="search">
+			<div class="text-all dis-box j-text-all text-all-back">
+
+				<div class="box-flex input-text new-group">
+					<div class="box-flex">
+						<input name="infokeyword" class="j-input-text" type="text" placeholder="产品" />
+						<i class="iconfont icon-guanbi1 is-null j-is-null"></i>
+					</div>
+				</div>
+				<a  onclick="addpost('keyword')" class="btn-submit-1"><i  class="iconfont icon-sousuo my-sousou"></i></a>
+				<a href="#j-filter-div" class="s-filter j-s-filter">筛选</a>
+			</div>
+		</section>
+{if $date_result}
+{foreach $date_result as $date_result_goods}
+		<section class=" my-nav-box b-color-f m-top06">
+			<a href="user_purse.html">
+				<div class="dis-box padding-all my-bottom">
+					<h3 class="box-flex text-all-span my-u-title-size-pre">{$date_result_goods.end_time_day}</h3>
+				</div>
+			</a>
+		</section>
+		<section class="goods-evaluation">
+			<div id="j-tab-con">
+				<div class="user-center-1 user-register-1 of-hidden">
+					<div class="swiper-wrapper">
+						<section class="swiper-slide swiper-no-swiping product-list j-product-list product-list-medium" data="1">
+							<ul>
+                                                            
+								{foreach $date_result_goods.goods as $goods}
+								<li>
+									<div class="product-div">
+										<a class="product-div-link" href="{$goods.url}"></a>
+										<div class="group-img-box">
+											{if $goods.status == 3}
+											<div class="group-over-box">
+												<div>
+													<p class="group-cont-box">已结束</p>
+												</div>
+											</div>
+											{/if}
+											<img class="product-list-img" src="{$goods.thumb}">
+										</div>
+										<div class="product-text-group">
+											<h4>{$goods.goods_name}</h4>
+											<p><span class="p-price t-first ">{$goods.shop_price}<small>
+												<del>{$goods.market_price}</del>
+											</small></span></p>
+											<div class="group-right-box" {if $goods.status == 3} style="display:none"  {/if}>
+											<span class="group-cont">{if $goods.status == 1}距离开始 {elseif $goods.status == 3} {else}剩余 {/if}</span>
+											<span class="group-num-box">{$goods.short_format_date}</span>
+										</div>
+										<a href="javascript:void(0);" class="icon-flow-cart fr j-goods-attr"><i
+												class="iconfont icon-gouwuche"></i></a>
+									</div>
+								</li>
+								{/foreach}
+                                                          
+							</ul>
+						</section>
+					</div>
+				</div>
+			</div>
+		</section>
+{/foreach}
+      {else}
+      
+                                                                <div class="no-div-message">
+                                                                    <i class="iconfont icon-biaoqingleiben"></i>
+                                                                    <p>亲，此处没有内容～！</p>
+                                                                </div>
+                                                                {/if}
+<div id="j-filter-div" class="j-filter-div filter-div ts-5 c-filter-div">
+	<div class="mask-filter-div"></div>
+	<section class="close-filter-div j-close-filter-div">
+		<div class="close-f-btn">
+			<i class="iconfont icon-fanhui"></i>
+			<span>关闭</span>
+		</div>
+	</section>
+	<section class="con-filter-div">
+		<div class="swiper-wrapper">
+			<div class="swiper-slide">
+				<div class="padding-all select-one-1">
+					<ul class="dis-box j-get-one">
+						<li class="ect-select box-flex list-select promotion my-but-pre">
+							<label class="ts-1 dis-block active" status="0">全部</label>
+						</li>
+						<li class="ect-select box-flex list-select hasgoods my-but-pre">
+							<label class="ts-1 dis-block" status="1">即将开始</label>
+						</li>
+						<li class="ect-select box-flex list-select hasgoods my-but-pre">
+							<label class="ts-1 dis-block" status="2">预约中</label>
+						</li>
+						<li class="ect-select box-flex list-select promotion my-but-pre">
+							<label class="ts-1 dis-block" status="3">已结束</label>
+						</li>
+					</ul>
+				</div>
+				<div class="select-two">
+					<ul class="padding-all j-get-limit new-f" data-istrue="true">
+						<li class="ect-select j-checkbox-all">
+							<label class="ts-1  active" data-catid="0">全部<i
+									class="fr iconfont icon-gou ts-1"></i></label>
+						</li>
+						{foreach $pre_cat as $val}
+						<li class="ect-select">
+							<label class="ts-1" data-catid="{$val.cat_id}">{$val.cat_name}<i
+									class="fr iconfont icon-gou ts-1"></i></label>
+						</li>
+						{/foreach}
+					</ul>
+
+				</div>
+				<div class="ect-button-more dis-box padding-all">
+					<a class="box-flex btn-reset j-filter-reset" type="button">清空选项</a>
+					<a onclick="addpost('cat_id')" class="box-flex btn-submit" type="submit">确定</a>
+				</div>
+			</div>
+		</div>
+	</section>
+</div>
+	</body>
+<script>
+	$(function () {
+		$('.my-but-pre').click(function () {
+			for (var i = 0; i < $('.my-but-pre').size(); i++) {
+				if (this == $('.my-but-pre').get(i)) {
+					$('.my-but-pre').eq(i).children('label').addClass('active');
+				} else {
+					$('.my-but-pre').eq(i).children('label').removeClass('active');
+				}
+			}
+		})
+	})
+</script>
+<script>
+	function addpost(type) {
+		var args = new Array();
+		if(type == 'cat_id'){
+			var status = $(".dis-block.active").attr('status');
+			var cat_id_arr = get_cat_id_arr();
+			var url = "{url('new')}";
+
+			args['status'] = status;
+			args['cat_id'] = cat_id_arr;
+		}else if(type == 'keyword'){
+			var url = "{url('new')}";
+			args['keyword'] = $("input[name=infokeyword]").val();;
+		}
+		StandardPost(url, args);
+	}
+	function StandardPost(url, args) {
+		var form = $("<form method='post'></form>");
+		form.attr({"action": url});
+		if(args){
+			for (arg in args) {
+				var input = $("<input type='hidden'>");
+				input.attr({"name": arg});
+				input.val(args[arg]);
+				form.append(input);
+			}
+		}
+		form.submit();
+	}
+	function get_cat_id_arr(){
+		var k = 0;
+		var cat_id_arr = [];
+		$.each($(".ect-select > .active"),function(){
+			cat_id_arr[k] =  $(this).attr("data-catid");
+			k++;
+		});
+		cat_id_arr.shift();
+		return cat_id_arr;
+	}
+</script>
+</html>

@@ -1,0 +1,59 @@
+{include file="page_header"}
+		<div class="con">
+				<header class="dis-box header-menu-1 b-color color-whie  goods-fixed-raise  active">
+					<div class="box-flex">
+						<ul class="dis-box  goods-header-nav-box-raise active">
+							<li class="box-flex"><a href="{url('crowd_funding/index/info',array('id'=> $id))}"><label>商品</label></a></li>
+							<li class="box-flex"><a class="hover" href="{url('crowd_funding/index/properties',array('id'=> $id))}"><label>详情</label></a></li>
+							<li class="box-flex"><a href="{url('crowd_funding/index/comment',array('id'=> $id))}"><label>评论</label></a></li>
+						</ul>
+					</div>
+				</header>
+			<div class="goods-info of-hidden ect-tab j-goods-info j-ect-tab ts-3">
+				<div class="hd j-tab-title tab-title b-color-f of-hidden m-top06">
+					<ul class="dis-box">
+						<li class="box-flex active">项目主页</li>
+						<li class="box-flex">风险说明</li>
+					</ul>
+				</div>
+				<div id="j-tab-con" class="b-color-f m-top1px tab-con ">
+					<div class="swiper-wrapper">
+						<section class="swiper-slide ">
+								<div class="raise-goods-detali padding-all">
+									{$describe}
+								</div>
+						</section>
+						<section class="swiper-slide goods-info-attr">
+								<div class="raise-goods-detali padding-all f-05 col-7">
+									{$row.risk_instruction}
+								</div>
+						</section>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<script>
+			/*切换*/
+			var tabsSwiper = new Swiper('#j-tab-con', {
+				speed: 100,
+				noSwiping: true,
+				autoHeight: true,
+				onSlideChangeStart: function() {
+					$(".j-tab-title .active").removeClass('active')
+					$(".j-tab-title li").eq(tabsSwiper.activeIndex).addClass('active')
+				}
+			})
+			$(".j-tab-title li").on('touchstart mousedown', function(e) {
+				e.preventDefault()
+				$(".j-tab-title .active").removeClass('active')
+				$(this).addClass('active')
+				tabsSwiper.slideTo($(this).index())
+			})
+			$(".j-tab-title li").click(function(e) {
+				e.preventDefault()
+			})
+		</script>
+	</body>
+
+</html>

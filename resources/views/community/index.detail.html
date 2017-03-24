@@ -1,0 +1,288 @@
+{include file="page_header"}
+<div class="con mb-7">
+	<header class="dis-box header-menu n-header-menu b-color color-whie">
+        <a class="" href="javascript:history.go(-1);"><i class="iconfont icon-back"></i></a>
+        <h3 class="box-flex">{$page_title}</h3>
+        <a><i class="iconfont icon-13caidan j-nav-box"></i></a>
+   </header>
+    <div class="goods-nav ts-3">
+	       <ul class="goods-nav-box">
+	            <a href="{url('/site')}">
+	                <li><i class="iconfont icon-home"></i>商城首页</li>
+	            </a>
+	             <a href="{url('community/index/index')}">
+	                <li><i class="iconfont icon-medal"></i>社区圈子</li>
+	            </a>
+	            <a href="{url('community/post/index')}">
+	                <li><i class="iconfont icon-paizhao"></i>去发帖</li>
+	            </a>
+	            <a href="{url('community/index/my')}">
+	                <li style="border:none"><i class="iconfont icon-geren"></i>我的社区</li>
+	            </a>
+	        </ul>
+	    </div>
+    <!--晒单列表-->
+    <section class="com-nav">
+        <ul class="dis-box padding-all">
+            <li class="com-left">
+                <div class="com-left-box"><img src="{$detail.user_picture}"></div>
+            </li>
+            <li class="box-flex">
+                <div class="com-adm-box new-t">
+                    <h4>{$detail.user_name}</h4>
+                </div>
+            </li>
+            <li>
+                <div class="t-time"><i class="iconfont icon-shijian my-com-size"></i><span>{$detail.add_time}</span>
+                </div>
+            </li>
+        </ul>
+        <div class="margin-lr com-min-tit">
+            {if $detail.dis_type == 1}
+            <em class="em-promotion-1 tm-ns">讨</em>
+            {elseif $detail.dis_type == 2}
+            <em class="em-promotion-1 tm-ls">问</em>
+            {elseif $detail.dis_type == 3}
+            <em class="em-promotion-1">圈</em>
+            {elseif $detail.dis_type == 4}
+            <em class="em-promotion-1 tm-hs-1">晒</em>
+            {/if}
+            <span>{$detail.dis_title}</span>
+        </div>
+        {if $dis_type == 4}
+        {foreach $img_list as $list}
+        <div class="com-deta-img" style="width: 100%"><img src="{$list.img_thumb}"></div>
+        {/foreach}
+        {/if}
+        <p class="com-cont-box padding-all"> {$detail.dis_text}</p>
+
+        <div class="padding-all  b-color-f  m-top06 fx-deta-box">
+            <ul class="dis-box com-list-1">
+                <li class="box-flex">
+                    <div class="yuan" onclick="dianzan({$dis_type},{$detail.dis_id})">
+                        <a href="javascript:;" id="red" {if $detail.islike} class="active" {else}{/if}>
+                        <i class="iconfont icon-zan icon-yuan1"></i>
+                        <p id="like_num">{$detail.like_num}</p>
+                        <input id="islike" type="hidden" name="islike" value="{$islike}"/>
+                        <input id="isclick" type="hidden" name="isclick" value="0"/>
+                        </a>
+                    </div>
+
+                </li>
+                <li class="box-flex j-show-div">
+                    <div class="yuan oncle-color new-color">
+                        <i class="iconfont icon-fenxiang"></i>
+                        <p>分享</p>
+                    </div>
+
+                    <div class="com-icon">
+                        <section class="j-show-div j-show-get-val padding-lr">
+                            <!--分享方式弹出层-->
+                            <div class="show-time-con ts-3 b-color-1 j-filter-show-div">
+                                <section class="goods-show-title of-hidden padding-all b-color-f">
+                                    <h3 class="fl g-c-title-h3">分享到：</h3>
+                                    <i class="iconfont icon-guanbi2 show-div-guanbi fr"></i>
+                                </section>
+                                <section class="s-g-list-con swiper-scroll">
+                                    <div class="swiper-wrapper">
+                                        <div class="swiper-slide select-two">
+                                            <ul class="j-get-one padding-all ul-4 pt-1 is-over">
+                                                <div class="bdsharebuttonbox" data-tag="share_1">
+                                                    <a class="bds_weixin" data-cmd="weixin"></a>
+                                                    <a class="bds_sqq" data-cmd="sqq"></a>
+                                                    <a class="bds_qzone" data-cmd="qzone" href="#"></a>
+                                                    <a class="bds_tsina" data-cmd="tsina"></a>
+                                                    <a class="bds_pyq user-shop-fx"></a>
+                                                </div>
+                                                <script>
+                                                    window._bd_share_config = {
+                                                        common: {
+                                                            bdText: '{$detail.dis_text}',
+                                                            bdDesc: '{$detail.dis_text}',
+                                                            bdUrl: window.location.href
+                                                        },
+                                                        share: [{
+                                                            "bdSize": 16
+                                                        }],
+                                                        selectShare: [{
+                                                            "bdselectMiniList": ['qzone', 'tqq', 'kaixin001', 'bdxc', 'tqf']
+                                                        }]
+                                                    }
+                                                    with (document)0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?cdnversion=' + ~(-new Date() / 36e5)];
+                                                </script>
+                                            </ul>
+                                        </div>
+                                        <div class="swiper-scrollbar"></div>
+                                    </div>
+                                </section>
+                            </div>
+                        </section>
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+    </section>
+    <section>
+        <div class="dis-box padding-all my-bottom b-color-f my-nav-box m-top06">
+            <h3 class="box-flex text-all-span my-u-title-size-1">关联商品</h3>
+        </div>
+        <a href="{$link_good.url}">
+            <ul class="dis-box b-color-f padding-all">
+                <li class="write-add-img-box b-color-f">
+                    <div class="write-add-img"><img src="{$link_good.goods_thumb}"></div>
+                </li>
+                <li class="box-flex gl-com">
+                    <p>{$link_good.goods_name}</p>
+                </li>
+                <div class="my-dete-box">
+                    <span class="t-jiantou fr"><i class="iconfont icon-jiantou tf-180 jian-top int-jt1-box"></i></span>
+                </div>
+            </ul>
+        </a>
+    </section>
+
+    <section>
+        <div class="dis-box padding-all my-bottom b-color-f my-nav-box m-top06">
+            <h3 class="box-flex text-all-span my-u-title-size-1">评论列表</h3>
+        </div>
+        <div class="comment-list">
+            <script id="j-product" type="text/html">
+                <%if totalPage > 0%>
+                <%each commentlist as cf%>
+                <ul class="padding-all b-color-f my-com-max-box">
+                    <li class="com-img-left">
+                        <div class="com-left-box"><img src="<%cf.user_picture%>"></div>
+                    </li>
+                    <li class="com-con-right">
+                        <ul class="dis-box">
+                            <li class="box-flex">
+                                <div class="com-adm-box">
+                                    <h4 id="{$cf.dis_id}"><%cf.user_name%></h4>
+                                    <p><%cf.add_time%></p>
+                                </div>
+                            </li>
+                            <li class="not">
+                                <div class="com-data-right  com-list-1">
+                                        <span class="oncle-color" onclick="comment2(<%cf.dis_id%>)">
+                                            <span class="my-right1"><%if cf.count > 0%><%cf.count%><%else%>0<%/if%><i
+                                                    class="iconfont icon-daipingjia"></i></span>
+                                        </span>
+                                </div>
+                            </li>
+                        </ul>
+                        <p class="com-con-m"><%cf.dis_text%></p>
+                        <%each cf.second as cs%>
+                        <div class="pl-hf-box padding-all">
+                            <p><span><%cs.user_name%> : </span><%cs.dis_text%></p>
+                            <div class="x-jiant"></div>
+                        </div>
+                        <%/each%>
+                    </li>
+                </ul>
+                <%/each%>
+                <%else%>
+                <div class="no-div-message">
+                    <i class="iconfont icon-biaoqingleiben"></i>
+                    <p>亲，此处没有内容～！</p>
+                </div>
+                <%/if%>
+            </script>
+        </div>
+    </section>
+<div class="goods-scoll-bg"></div>
+</div>
+<input type="hidden" name="cid" value="{if $detail.dis_id}{$detail.dis_id}{else}{$detail.comment_id}{/if}"/>
+<section class="filter-btn consult-filter-btn  padding-all" style="display:list-item; height:5rem;">
+    <div class="dis-box">
+        <div class="box-flex text-all">
+            <input class="j-input-text" type="text" name='comment' placeholder="回复帖子:" value="">
+        </div>
+        <button type="button" class="btn-submit">发送</button>
+    </div>
+</section>
+<div class="mask-filter-div"></div>
+<!--引用js-->
+<script>
+
+    $(function () {
+			/*ios第三方输入法兼容问题
+			var interval = setInterval(function() {
+			    document.body.scrollTop = document.body.scrollHeight
+			}, 200 );*/
+        var url = "{url('commentlist', array('id'=>$dis_id,'type'=>$dis_type))}";
+        $('.comment-list').infinite({url: url, template: 'j-product'});
+//        var infinite = $('.comment-list').infinite({url: url, template: 'j-product'});
+//        infinite.onload('id=' + {$dis_id} + '&type=' + {$dis_type});
+    })
+</script>
+<script>
+    $('.mb-7').click(function () {
+        $(".j-input-text").attr('placeholder', '回复帖子:');
+        $("input[name='cid']").val({$detail.dis_id});
+    })
+    function comment2(cid) {
+        c_id = cid;
+        event.stopPropagation();
+        cname = document.getElementById(cid).innerHTML;
+        $(".j-input-text").attr('placeholder', '回复' + cname + ':');
+        $("input[name='cid']").val(c_id);
+    }
+    $('.btn-submit').click(function () {
+        var content = $("input[name='comment']").val();
+        if (content == '') {
+            d_messages('请填写回复内容');
+            return false;
+        }
+        $.ajax({
+            type: "post",
+            url: "{url('commnet')}",
+            data: {
+                dis_text: content,
+                id: {$detail.dis_id},
+                type: {$dis_type},
+                dis_id: $("input[name='cid']").val()
+            },
+            dataType: "json",
+            success: function (data) {
+                status(data);
+            }
+        });
+        function status(json) {
+            window.location.href = json;
+        }
+    });
+    function dianzan(dis_type, dis_id) {
+        var isclick = document.getElementById('isclick').value;
+        $("#isclick").val(new Date().getTime());
+        if (isclick < (new Date().getTime() - 1000)) {
+            $.ajax({
+                type: "post",
+                url: "{url('like')}",
+                data: {dis_type: dis_type, dis_id: dis_id},
+                dataType: "json",
+                success: function (data) {
+                    if (data.is_like == 1) {
+                        $("#red").addClass("active");
+                    } else {
+                        $("#red").removeClass("active");
+                    }
+                    $("#like_num").html(data.like_num);
+                    $("#islike").val(data.is_like);
+                }
+            });
+        }
+    }
+</script>
+<script>
+
+    /*店铺信息商品滚动*/
+    var swiper = new Swiper('.j-g-s-p-con', {
+        scrollbarHide: true,
+        slidesPerView: 'auto',
+        centeredSlides: false,
+        grabCursor: true
+    });
+</script>
+</body>
+</html>

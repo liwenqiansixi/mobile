@@ -1,0 +1,68 @@
+{include file="page_header"}
+<body class="b-color-f">
+<div class="con" >
+    <form action="{url('Realname')}" method="post" onsubmit="return formcheck()">
+        <section class="user-center j-f-tel margin-lr">
+            <div class="text-all dis-box j-text-all bank_card">
+                <label>真实姓名</label>
+                <div class="box-flex input-text">
+                    <span class="j-input-text inputcard n-input">{$real_user.real_name}</span>
+                    <i class="iconfont icon-guanbi1 is-null j-is-null"></i>
+                </div>
+            </div>
+            <div class="text-all dis-box j-text-all bank_user_name">
+                <label>身份证号</label>
+                <div class="box-flex input-text">
+                    <span class="j-input-text inputcard n-input">{$real_user.self_num}</span>
+                    <i class="iconfont icon-guanbi1 is-null j-is-null"></i>
+                </div>
+            </div>
+            <div class="text-all dis-box j-text-all bank_region">
+                <label>银行</label>
+                <div class="box-flex input-text">
+                    <span class="j-input-text inputcard n-input">{$real_user.bank_name}</span>
+                    <i class="iconfont icon-guanbi1 is-null j-is-null"></i>
+                </div>
+            </div>
+            <div class="text-all dis-box j-text-all bank_name">
+                <label>银行卡号</label>
+                <div class="box-flex input-text">
+                    <span class="j-input-text inputcard n-input">{$real_user.bank_card}</span>
+                    <i class="iconfont icon-guanbi1 is-null j-is-null"></i>
+                </div>
+            </div>
+            <div class="text-all dis-box j-text-all bank_name">
+                <label>认证时间</label>
+                <div class="box-flex input-text">
+                    <span class="j-input-text inputcard n-input">{$real_user.validate_time}</span>
+                    <i class="iconfont icon-guanbi1 is-null j-is-null"></i>
+                </div>
+            </div>
+            <div class="text-all dis-box j-text-all bank_name">
+                <label>审核状态</label>
+                <div class="box-flex input-text">
+                    <span class="j-input-text inputcard n-input">{if $real_user.review_status == 1}审核通过{elseif $real_user.review_status == 2}审核未通过{else}未审核{/if}</span>
+                    <i class="iconfont icon-guanbi1 is-null j-is-null"></i>
+                </div>
+            </div>
+            <div class="text-all dis-box j-text-all bank_name">
+                <label>绑定手机</label>
+                <div class="box-flex input-text">
+                    <span class="j-input-text inputcard n-input">{$mobile_phone}</span>
+                    <i class="iconfont icon-guanbi1 is-null j-is-null"></i>
+                </div>
+            </div>
+            <div class="text-all dis-box j-text-all bank_name">
+                <label>认证渠道</label>
+                <div class="box-flex input-text">
+                    <span class="j-input-text inputcard n-input">{C('shop.shop_name')}实名认证</span>
+                    <i class="iconfont icon-guanbi1 is-null j-is-null"></i>
+                </div>
+            </div>
+            <button type="button" value="sub" class="btn-submit"><a href="{url('Realname', array('type'=>'edit'))}">修改认证信息</a></button>
+        </section>
+    </form>
+</div>
+</body>
+
+</html>

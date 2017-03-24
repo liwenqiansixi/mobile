@@ -1,0 +1,85 @@
+{include file="page_header"}
+    <div class="con m-p7">
+    	<header class="dis-box header-menu-1 b-color color-whie  goods-fixed-raise  active">
+			<div class="box-flex">
+				<ul class="dis-box  goods-header-nav-box-raise active">
+					<li class="box-flex"><a href="{url('crowd_funding/index/info',array('id'=> $id))}"><label>商品</label></a></li>
+					<li class="box-flex"><a  href="{url('crowd_funding/index/properties',array('id'=> $id))}"><label>详情</label></a></li>
+					<li class="box-flex"><a class="hover" href="{url('crowd_funding/index/comment',array('id'=> $id))}"><label>评论</label></a></li>
+				</ul>
+			</div>							
+		</header>
+    <div class="goods-evaluation-page of-hidden ect-tab j-ect-tab">
+        
+        <!-- <div id="j-tab-con" class="b-color-f tab-con"> -->
+
+            <div class="swiper-wrapper divrank">
+
+                <section class="swiper-slide of-hidden sectrank">
+                    <div class="comment-info rank" >
+                    <script id="j-product" type="text/html">
+                    <%if totalPage > 0 %>
+                    <%each list as comment%>
+                    <div class="evaluation-list padding-all b-color-f m-top08">
+                        <header class="of-hidden dis-box comment-n-box">
+                             <div class="comment-n-cont-left">
+								<%if comment.user_picture  %>
+								<div class="raise-admin-img"><img src="<%comment.user_picture%>"></div>
+								<%else%>
+								<div class="raise-admin-img"><img src="{elixir('img/no_image.jpg')}"></div>
+								<%/if %>
+								
+                               <!--  <span class="grade-star g-star-<%comment.rank%> fl"></span> -->          
+                            </div>
+                             <div class="box-flex t-remark">
+                             	<h4 class="f-06 col-4 m-top06">
+                             		 <%if comment.username%>
+                                    <%comment.username%>
+                                    <%else%>
+                                    <%lang.anonymous%>
+                                    <%/if%>
+                             	</h4>
+                            	<time class="f-03 col-9"><%comment.add_time%></time>
+                            </div>
+                        </header>
+                        <p class="col-4 m-top02 f-05"><%comment.topic_content%></p>          
+                        
+							<%if comment.re_topic_content %>
+							
+							<div class="messageeditorReply-box">
+								<div class="messageeditorReply-cont-jt tf-45"></div>
+								<label class="admin-text">管理员回复：</label>
+								<%comment.re_topic_content%>
+							</div>		
+							</p>
+							<%/if %>
+                    </div>
+                    <%/each%>
+                    <% else %>
+                    <div class="no-div-message">
+                        <i class="iconfont icon-biaoqingleiben"></i>
+                        <p>亲，此处没有内容～！</p>
+                    </div>
+                    <% /if %>
+                </script>
+                </div>
+                </section>
+                
+
+            </div>
+
+       <!--  </div> -->
+    </div>
+    </div>
+</div>
+<input type="hidden" name="goods" value="{$id}">
+
+<script>
+  //异步数据
+	$(function(){
+		var url = "{url('comment', array('goods'=>$id, 'page'=>$page))}";
+		$('.swiper-slide').infinite({url: url, template:'j-product'});
+	})
+</script>
+</body>
+</html>

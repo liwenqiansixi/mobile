@@ -1,0 +1,21 @@
+{include file="page_header"}
+{foreach $list as $list}
+{foreach $list.activity_list as $key=>$activity}
+<section {if $key > 0}class="m-top06"{/if}>
+    <a href="{$activity.url}">
+        <div class="act-header-box-list">
+            <div class="act-right-box">
+                {$list.activity_name}
+            </div>
+            <img src="{$activity.activity_thumb}">
+        </div>
+        <div class="padding-all b-color-f ">
+            <h3 class="my-u-title-size">{$activity.act_name}</h3>
+            <p class="act-cont">{$activity.start_time} - {$activity.end_time} </p>
+        </div>
+    </a>
+</section>
+{/foreach}
+{/foreach}
+</body>
+</html>

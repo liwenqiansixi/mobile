@@ -1,0 +1,1 @@
+ALTER TABLE `{pre}touch_auth` ADD COLUMN `sort`  int(10) UNSIGNED NOT NULL DEFAULT 0 AFTER `type`, ADD COLUMN `status`  int(10) UNSIGNED NOT NULL DEFAULT 0 AFTER `sort`;

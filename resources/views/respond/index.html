@@ -1,0 +1,23 @@
+{include file="page_header"}
+<div class="con">
+    <div class="message">
+        <div class="flow-done-con">
+            <!--{if $msg_type == 1}-->
+            <i class="iconfont icon-guanbi1"></i>
+            <!--{/if}-->
+            <!--{if $msg_type == 0}-->
+            <i class="iconfont icon-hookring2"></i>
+            <!--{/if}-->
+            <!--{if $msg_type == 2}-->
+            <i class="iconfont icon-102"></i>
+            <!--{/if}-->
+            <p>{$message}</p>
+        </div>
+        <div class="padding-all message-a">
+            <a class="back" href="{$shop_url}">{$lang.back_home}</a>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>

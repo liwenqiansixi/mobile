@@ -1,0 +1,181 @@
+{include file="page_header"}
+<section class="b-color-f  my-nav-box">
+	<a href="javascript:;">
+		<div class="s-user-top">
+			<div class="user-bg-box-1"><img src="{elixir('img/user-1.png')}"></div>
+			<div class="user-bg2-box-1"><img src="{elixir('img/user-2.png')}"></div>
+			<div class="dis-box s-xian-box s-user-top-1 p-r">
+				<img src="" alt="" id="userimg" />
+				<h3 class="box-flex text-all-span my-u-title-size s-user-img">头像</h3>
+				<div class="box-flex t-goods1 text-right onelist-hidden jian-top" for="logo">
+					<input id="headimg" type="file" class="user-profile-img" style="display:none;" />
+					{if $info.user_picture !=='' }
+					<div class="user-head-img-box-1"><img src="{$info.user_picture}"></div>
+                    {else}
+                    <div class="user-head-img-box-1"><img src="{elixir('img/no_image.jpg')}"></div>
+                    {/if}
+				</div>
+			</div>
+
+		</div>
+	</a>
+
+	<div class="s-user-top">
+		<div class="dis-box s-xian-box s-user-top-1">
+			<h3 class="box-flex text-all-span my-u-title-size">用户名</h3>
+			<div class="box-flex t-goods1 text-right onelist-hidden jian-top">{$info.username}</div>
+		</div>
+	</div>
+	<div class="s-user-top onclik-sex">
+		<div class="dis-box s-xian-box s-user-top-1">
+			<h3 class="box-flex text-all-span my-u-title-size">性别</h3>
+                      
+			<div id="sex" class="box-flex t-goods1 text-right onelist-hidden jian-top">{$info.sex}</div>
+
+			<span class="t-jiantou"><i class="iconfont icon-jiantou tf-180 jian-top"></i></span>
+		</div>
+	</div>
+	<a href="{url('user/profile/user_edit_mobile')}">
+		<div class="s-user-top onclik-admin">
+			<div class="dis-box s-xian-box s-user-top-1">
+				<h3 class="box-flex text-all-span my-u-title-size">手机</h3>
+                                        {if $info.mobile_phone ==''}
+				<div class="box-flex t-goods1 text-right onelist-hidden jian-top">未绑定</div>
+                                        {else}
+                                        <div class="box-flex t-goods1 text-right onelist-hidden jian-top">{$info.mobile_phone}</div>
+                                        {/if}
+				<span class="t-jiantou"><i class="iconfont icon-jiantou tf-180 jian-top"></i></span>
+			</div>
+		</div>
+	</a>
+	<a href="{url('user/profile/user_edit_email')}">
+		<div class="s-user-top">
+			<div class="dis-box s-user-top-1">
+				<h3 class="box-flex text-all-span my-u-title-size">邮箱</h3>
+                                         {if $info.email ==''}
+				<div class="box-flex t-goods1 text-right onelist-hidden jian-top">未绑定</div>
+                                        {else}
+                                        <div class="box-flex t-goods1 text-right onelist-hidden jian-top">{$info.email}</div>
+                                        {/if}
+				<span class="t-jiantou"><i class="iconfont icon-jiantou tf-180 jian-top"></i></span>
+			</div>
+		</div>
+	</a>
+</section>
+<section class="b-color-f my-nav-box m-top10">
+	<a href="{url('user/index/edit_password')}">
+		<div class="s-user-top">
+			<div class="dis-box s-xian-box s-user-top-1">
+				<h3 class="box-flex text-all-span my-u-title-size">修改密码</h3>
+				<span class="t-jiantou"><i class="iconfont icon-jiantou tf-180 jian-top"></i></span>
+			</div>
+		</div>
+	</a>
+	<a href="{url('index/addresslist')}">
+		<div class="s-user-top">
+			<div class="dis-box s-xian-box s-user-top-1">
+				<h3 class="box-flex text-all-span my-u-title-size">收货地址</h3>
+				<span class="t-jiantou"><i class="iconfont icon-jiantou tf-180 jian-top"></i></span>
+			</div>
+		</div>
+	</a>
+	<a href="{url('user/profile/Realname')}">
+		<div class="s-user-top">
+			<div class="dis-box s-xian-box s-user-top-1">
+				<h3 class="box-flex text-all-span my-u-title-size">实名认证</h3>
+				<span class="t-jiantou"><i class="iconfont icon-jiantou tf-180 jian-top"></i></span>
+			</div>
+		</div>
+	</a>
+</section>
+<div class="ect-button-more padding-all">
+    <a class="btn-submit box-flex" type="button" href="{url('user/login/logout')}">退出</a>
+</div>
+<!--updata-admin-->
+<div class=" my-sex-box">
+	<div class="flow-consignee margin-lr">
+			<ul class="g-s-i-title-3 dis-box text-center user-sex">
+				<li class="box-flex  sex-default-color">
+					<a href="javascript:;" class="{if $user_sex == 1}active{/if}">
+						<i class="iconfont icon-nan my-sex-size" ></i>
+                    	<input type="radio" name="sex" value="1"/><h4 class="ellipsis-one">男</h4>
+					</a>
+				</li>
+				<li class="box-flex sex-default-color" >
+					<a href="javascript:;" class="sex-nv {if $user_sex == 2}active{/if}">
+						<i class="iconfont icon-nv my-sex-size" ></i>
+                      	<input type="radio" name="sex" value="2"/><h4 class="ellipsis-one">女</h4>
+					</a>
+				<li>
+			</ul>
+			<div class="ect-button-more dis-box m-top12 updata-top my-sex-close">
+              <button  class="btn-submit box-flex" type="submit" value="submit">确定</button>
+			</div>
+	</div>
+</div>
+<script>
+	$(function($) {
+		$(".onclik-sex").click(function() {
+			$(".my-sex-box").addClass("current");
+		});
+		$(".my-sex-close").click(function() {
+			$(".my-sex-box").removeClass("current");
+		});
+	});
+	$(function() {
+		$('.sex-default-color').click(function() {
+			for (var i = 0; i < $('.sex-default-color').size(); i++) {
+				if (this == $('.sex-default-color').get(i)) {
+					$('.sex-default-color').eq(i).children('a').addClass('active');
+				} else {
+					$('.sex-default-color').eq(i).children('a').removeClass('active');
+				}
+			}
+		})
+	})
+
+$(".user-sex").click(function(){
+	var sex = $(".active input[name='sex']").val();
+   
+	$.post("{url('user/profile/editprofile')}",{sex:sex},function(data){
+		$("#sex").text(data.sex);
+	},"json");
+	
+})
+{if $is_wechat == 0}
+/* 修改头像*/
+$('.user-head-img-box-1 img').click(function(){
+	$('#headimg').click();
+});
+$('#headimg').change(function(e){
+	var file = e.target.files[0];
+	var form = new FormData();
+	form.append('img', file);
+
+	var xhr;
+	if(window.ActiveXObject)
+	{
+		xhr = new ActiveXObject("Microsoft.XMLHTTP");
+	}
+	else if(window.XMLHttpRequest)
+	{
+		xhr = new XMLHttpRequest();
+	}
+	xhr.onreadystatechange = function(){
+		if(xhr.readyState == 4){
+			if(xhr.status == 200 || xhr.status == 0){
+				var res = xhr.responseText;
+				res = JSON.parse(res);
+				if(res.error == 0){
+					$('.user-head-img-box-1 img').attr('src', '../' + res.path);
+				}
+			}
+		}
+	};
+	xhr.open("post", "{url('changeheader')}", true);
+	xhr.send(form);
+});
+{/if}
+</script>
+</body>
+</html>

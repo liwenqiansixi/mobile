@@ -1,0 +1,155 @@
+{include file="page_header"}
+<body>
+    <div class="con mb-7">
+        <header class="dis-box header-menu n-header-menu b-color color-whie">
+            <a class="" href="javascript:history.go(-1);"><i class="iconfont icon-back"></i></a>
+            <h3 class="box-flex">退换货详情</h3>
+            <a><i class="iconfont icon-13caidan j-nav-box"></i></a>
+        </header>
+            {include file="header_nav"}
+        <section class="flow-checkout-pro j-flow-checkout-pro" >
+            <header class="b-color-f padding-all" style="border-bottom:1px solid #f6f6f9">商品列表</header>
+            <div class="product-list-small b-color-f dis-box">
+                <ul class="box-flex flow-checkout-bigpic" style="display:block;">
+                    <li>
+                        <div class="product-div">
+							{if $return_detail['extension_code'] == 'package_buy'}
+                            <a class="product-div-link" href="{url('package/index/index')}"></a>
+							{else}
+							<a class="product-div-link" href="{url('goods/index/index', array('id'=>$return_detail['goods_id']))}"></a>
+							{/if}
+                            <img class="product-list-img" src="{$return_detail.goods_thumb}">
+                            <div class="product-text">
+                                <h4>{$return_detail.goods_name}</h4>
+                                <p>
+                                    <span class="p-price t-first ">{$return_detail.goods_price}<small class="fr t-remark">x{$return_detail.return_number}</small></span>
+                                </p>
+                                <p class="dis-box p-t-remark">
+                                    {$return_detail.attr_val}
+                                </p>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </section>
+        <header class="b-color-f padding-all m-top10">详细信息</header>
+        <ul class="user-refound-box b-color-f m-top04">
+        	<li class="dis-box">
+        		<div>退换货单号:</div>
+        		<div class="box-flex"><p class="t-first text-right">{$return_detail.return_sn}</p></div>
+        	</li>
+        	<li class="dis-box">
+        		<div>申请时间:</div>
+        		<div class="box-flex"><p class="col-3 text-right">{$return_detail.apply_time}</p></div>
+        	</li>
+        	<li class="dis-box">
+        		<div>服务类型:</div>
+        		<div class="box-flex"><p class="col-3 text-right">
+        			{if $return_detail.return_type == 0}
+                        维修
+                        {elseif $return_detail.return_type == 1}
+						退货
+                        {elseif $return_detail.return_type == 2}
+						换货
+                        {/if}</p></div>
+        	</li>
+        	<li class="dis-box">
+        		<div>订单状态:</div>
+        		<div class="box-flex"><p class="col-3 text-right">{$return_detail.return_status}</p></div>
+        	</li>
+        	<li class="dis-box">
+        		<div>退货原因:</div>
+        		<div class="box-flex"><p class="col-3 text-right"> {$return_detail.return_cause}</p></div>
+        	</li>
+        	<li class="dis-box">
+        		<div>退款金额:</div>
+        		<div class="box-flex"><p class="text-right t-first"> {$return_detail.refound_status}</p></div>
+        	</li>
+         </ul>
+		{if $return_detail.img_list}
+         <ul class="user-refound-box b-color-f m-top04">
+        		<li class="dis-box">
+        		<div>凭证图片:</div>
+        		<div class="box-flex"><p class="col-3 text-right"> </p></div>
+        	</li>
+        	<div class="goods-evaluation-page b-color-f tab-con ">
+				<div class="g-e-p-pic product-one-list of-hidden scrollbar-none j-g-e-p-pic swiper-container-horizontal">
+					<div class="swiper-wrapper ">
+						{foreach $return_detail.img_list as $img_url}
+						<li class="swiper-slide swiper-slide-active">
+              <div class="refound-img-list">
+							<img class="product-list-img" src="{$img_url}">
+            </div>
+						</li>
+
+						{/foreach}
+					</div>
+				</div>
+			</div>
+		 </ul>
+		{/if}
+         <ul class="user-refound-box b-color-f m-top04">
+        	<li class="dis-box">
+        		<div>联系人:</div>
+        		<div class="box-flex"><p class="col-3 text-right"> {$return_detail.addressee}</p></div>
+        	</li>
+        	<li class="dis-box">
+        		<div>联系电话:</div>
+        		<div class="box-flex"><p class="col-3 text-right">  {$return_detail.phone}</p></div>
+        	</li>
+        	<li class="dis-box">
+        		<div>联系地址:</div>
+        		<div class="box-flex"><p class="col-3 text-right"> {$return_detail.address_detail}</p></div>
+        	</li>
+        </ul>
+		{if $return_detail.agree_apply}
+		<header class="b-color-f padding-all m-top10" >用户寄出</header>
+		{if $return_detail.back_shipp_shipping}
+		<ul class="user-refound-box b-color-f m-top04">
+        	<li class="dis-box">
+        		<div>快递公司:</div>
+        		<div class="box-flex"><p class="col-3 text-right"> {$return_detail.back_shipp_shipping}</p></div>
+        	</li>
+        	<li class="dis-box">
+        		<div>快递单号:</div>
+        		<div class="box-flex"><p class="col-3 text-right">  {$return_detail.back_invoice_no}</p></div>
+        	</li>
+        	 {if $return_detail.back_invoice_no_btn}
+        	<li class="dis-box">
+        		<div class="box-flex"><p class="col-3 text-right n-refound-btn"> {$return_detail.back_invoice_no_btn}</p></div>
+        	</li>
+        	{/if}
+        </ul>
+        {/if}
+		<header class="b-color-f padding-all m-top10" >商家发货</header>
+		{if $return_detail.out_shipp_shipping}
+		<ul class="user-refound-box b-color-f m-top04">
+			<li class="dis-box">
+				<div>快递公司:</div>
+				<div class="box-flex"><p class="col-3 text-right"> {$return_detail.out_shipp_shipping}</p></div>
+			</li>
+			<li class="dis-box">
+				<div>快递单号:</div>
+				<div class="box-flex"><p class="col-3 text-right">  {$return_detail.out_invoice_no}</p></div>
+			</li>
+			{if $return_detail.out_invoice_no_btn}
+			<li class="dis-box">
+				<div class="box-flex"><p class="col-3 text-right n-refound-btn"> {$return_detail.out_invoice_no_btn}</p></div>
+			</li>
+			{/if}
+		</ul>
+		{/if}
+        {/if}
+    </div>
+    <script>
+    	/*店铺信息商品滚动*/
+			var swiper = new Swiper('.j-g-e-p-pic', {
+				scrollbarHide: true,
+				slidesPerView: 'auto',
+				centeredSlides: false,
+				grabCursor: true
+			});
+    </script>
+</body>
+</html>

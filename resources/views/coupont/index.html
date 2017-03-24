@@ -1,0 +1,129 @@
+{include file="page_header"}
+<div class="con">
+    <div class="goods-info user-order of-hidden ect-tab j-ect-tab ts-3">
+        <nav class="tab-title b-color-f of-hidden">
+            <ul class="dis-box">
+                <li class="box-flex {if empty($status)}active{/if}"><a status="0" >优惠券秒杀</a></li>
+                <li class="box-flex {if $status ==1}active{/if}"><a status="1" >任务集市</a></li>
+                <li class="box-flex {if $status == 2}active{/if}"><a status="2" >好券集市</a></li>
+            </ul>
+        </nav>
+
+        <!--备用-->
+        <!--        <%each seckill as order%>
+                <%/each%>
+        -->
+
+        <div id="j-tab-con" class="tab-con">
+            <div class="swiper-wrapper">
+                <section class="swiper-slide store_info">
+                       <script id="j-product" type="text/html">
+                      <%if coupons_list.tab !=''%>
+                        <%each coupons_list.tab as order%>
+                         <ul class="padding-all">
+                            <li class="big-remark-all  n-big-remark-all">
+                                <div class="dis-box position-rel">
+<!--                                    <div class="remark-out">快过期</div>-->
+                                    <a href="#" class="product-div-link"></a>
+                                    <div class="remark-all temark-1 tb-lr-center position-rel">
+                                        <div class="f-03  coupon-title"> <%order.cou_name%> </div>
+                                        <span class="b-r-a-price"><sup>¥</sup><%order.cou_money%></span>
+                                    </div>
+                                    <div class="box-flex b-color-f padding-all position-rel">
+<!--                                        <h4>与狼共舞官方旗舰店</h4>-->
+                                        <p>满 <%order.cou_man%>元 送<%order.cou_money%>元</p>
+                                        <p class="t-remark"><%order.endtime%></p>
+                                        <div class="couupon-list-btn dis-box ">
+                                            <div class="box-flex f-04"></div>
+                                            <div class="coupon-right">
+                                                   <a href="#" class="ts-1active" cou_id="<%order.cou_id%>">
+<!--                                                        <span class="txt">立即领取</span>-->
+                                                        <span class="btn-submit db f-05">领取</sapn>
+                                                    </a>
+                                                
+                                            </div>
+                                        </div>	
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                        
+                         <%/each%>
+                        <%else%>
+                        <div class="no-div-message">
+                            <i class="iconfont icon-biaoqingleiben"></i>
+                            <p>亲，还没有优惠券哦～！</p>
+                        </div>
+                        <%/if%>
+                     </script>
+                     <input type="hidden" value="{$sessionid}" id="uid">
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        /*切换*/
+        var tabsSwiper = new Swiper('#j-tab-con', {
+            speed: 100,
+            noSwiping: true,
+            autoHeight: true,
+            onSlideChangeStart: function () {
+                $(".j-tab-title .active").removeClass('active')
+                $(".j-tab-title li").eq(tabsSwiper.activeIndex).addClass('active')
+            }
+        })
+        $(".j-tab-title li").on('touchstart mousedown', function (e) {
+            e.preventDefault()
+            $(".j-tab-title .active").removeClass('active')
+            $(this).addClass('active')
+            tabsSwiper.slideTo($(this).index())
+        })
+        $(".j-tab-title li").click(function (e) {
+            e.preventDefault()
+        })
+        //列表
+        var infinite = $('.store_info').infinite({url: "{url('coupont/Index/index')}", template: 'j-product', params: 'status={$status}'});
+        $(".tab-title a").click(function () {
+            var status = $(this).attr('status');
+            infinite.onload('status=' + status);
+            $(this).parent().addClass("active").siblings().removeClass("active");
+        })
+
+        $("#j-tab-con").on("click", ".ts-1active", function () {
+            var id = $(this).attr('cou_id');
+            
+            $.get("{url('coupont/index/getcoupon')}", {cou_id: id}, function (info) {
+                if(info.error == '1'){
+//                   alert(info.msg);
+                     layer.open({
+                            content: '还未登录，请登录之后领取',
+                            btn: ['确定', '取消'],
+                            shadeClose: false,
+                            yes: function() {
+                                window.location.href = ROOT_URL + "index.php?m=user&c=login";
+                            },
+                            no: function() {
+                            }
+                        });
+                };
+                if(info.error == '2'){
+//                    alert(info.msg);
+                    d_messages(info.msg);
+                }
+                if(info.error == '3'){
+                    d_messages(info.msg);
+                }
+                if(info.error == '4'){
+                    d_messages(info.msg);
+                }
+                if(info.error == '5'){
+                    d_messages(info.msg);
+                }
+                   
+            },'json');
+        });
+    </script>
+</body>
+
+</html>

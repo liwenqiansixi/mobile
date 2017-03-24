@@ -1,0 +1,221 @@
+{include file="page_header"}
+				<div class="con mb-7">
+					<div class="shopping-list j-shopping-list">
+						<div class="shopping-menu j-shopping-menu">
+							<div class="dis-box b-color-f">
+									<nav style="cursor: grab;" class="shopping-list-nav article-list-nav box-flex">
+									<ul class="swiper-wrapper">
+										{foreach $data as $dat}
+										<li class="div{$dat.cat_id} swiper-slide article-li-select" category="{$dat.cat_id}">{$dat.cat_name}</li>
+										{/foreach}
+									</ul>
+								</nav>
+								<div class="shopping-nav-select j-s-nav-select"><i class="iconfont icon-jiantou"></i></div>
+							</div>
+							<div class="shopping-abs shopping-new-con swiper-scroll">
+								<div class="swiper-scroll">
+								<div class="swiper-wrapper">
+									<div class="swiper-slide">
+										{foreach $data as $da}
+										<li class="div{$da.cat_id}" category="{$da.cat_id}">{$da.cat_name}</li>
+										{/foreach}
+									</div>
+								</div>
+								<div class="swiper-scrollbar"></div>
+                                                                </div>
+							</div>
+						</div>
+					</div>
+					<!--文章头部
+					<section class="my-admin-header-box">
+						<div class="article-list-box">
+							<a href="user_detail.html">
+								<div class="user-com-img-box"><img src="__TPL__/img/product_05.png"></div>
+							</a>
+							<h4 class="article-title f-07 col-3 text-c m-top08">阳光小狗 | <label class="f-04 col-7">12000人关注</label></h4>
+							<div class="com-nav com-list article-nav dis-box  text-center">
+									<div class="box-flex oncle-color ">
+										<a href="javascript:;" class="active">
+											<h4>全部推荐</h4>
+											<p class="t-remark4">39</p>
+										</a>
+									</div>
+									<div class="oncle-color box-flex">
+										<a href="javascript:;">
+											<h4>资讯</h4>
+											<p class="t-remark4">0</p>
+										</a>
+									</div>
+									<div class="oncle-color box-flex">
+										<a href="javascript:;">
+											<h4>单品</h4>
+											<p class="t-remark4">154</p>
+										</a>
+									</div>
+									<div class="oncle-color box-flex">
+										<a href="javascript:;">
+											<h4>清单</h4>
+											<p class="t-remark4">2</p>
+										</a>
+									</div>
+							</div>
+						</div>
+					</section>-->
+					<section class="article-lists-box">
+						<!--list
+						<div class="article-list  padding-all b-color-f">
+							<div class="dis-box">
+								<div class="article-left box-flex">
+									<h4 class="f-07 col-3 twolist-hidden">李克强最看重的就业出成绩单了：总分高 单项强</h4>
+									<p class="f-03 col-7 m-top08 twolist-hidden">拥有一个男友，就等于同时拥有：一个万能工具箱和修理工+一个暖手宝宝暖水袋</p>
+								</div>
+								<div class="article-right">
+									<div class="article-img"><img src="__TPL__/img/raise-list3.jpg"></div>
+								</div>
+							</div>
+							<div class="dis-box m-top08">
+								<div class="article-admin-left">
+									<div class="dis-box article-admin-box">
+										<div class="article-admin"><img src="__TPL__/img/flow_cart_03.png"></div>
+
+										<div class="box-flex col-9 f-03 article-name">我是用户名</div>
+									</div>
+								</div>
+								<div class="box-flex article-right-num">
+									<div class="dis-box text-right">
+										<div class="box-flex"><i class="iconfont icon-shijian"></i><span class="f-02 col-7">2016-12-13</span></div>
+										<div class="box-flex"><i class="iconfont icon-liulan"></i><span class="f-02 col-7">0</span></div>
+									</div>
+								</div>
+							</div>
+						</div>
+					list-->
+					</section>
+			<!--文章start-->
+			<div class="article_info">
+			<script id="j-product" type="text/html">
+				<%if totalPage > 0%>
+			<%each article_index_new as ain%>
+
+					<section class="b-color-f m-top08 article-list">
+						<a href="<%ain.url%>">
+							<div class="art-tit-box padding-all">
+								<h4 class="com-cont-box art-cont-box"><%ain.title%></h4>
+								<%if ain.first_img%>
+								<div class="art-img-box"><img src="<%ain.first_img%>"></div>
+								<%/if%>
+								<small><time><%ain.add_time%></time><span><%ain.author%></span></small>
+							</div>
+						</a>
+						<!--caidan-->
+						<div class="com-list dis-box text-center  b-color-f">
+							<div class="oncle-color-1 box-flex">
+								<a href="javascript:;" id="red<%ain.article_id%>" <%if ain.islike == 1%> class="active"<%else%><%/if%>>
+									<div class="com-icon" onClick="change_like_number(<%ain.article_id%>)">
+										<i class="iconfont icon-zan"></i>
+										<span id="like_num<%ain.article_id%>"><%if ain.like%><%ain.like%><%else%>0<%/if%></span>
+										<input id="like<%ain.article_id%>" type="hidden" name="article_id" value="<%ain.article_id%>" />
+										<input id="islike<%ain.article_id%>"  type="hidden" id="<%ain.article_id%>" name="islike" value="<%ain.islike%>" />
+										<input id="isclick" type="hidden"  name="isclick" value="0" />
+									</div>
+								</a>
+							</div>
+							<div class="box-flex">
+								<a href="<%ain.url%>">
+									<div class="com-icon"><i class="iconfont icon-daipingjia"></i><span><%ain.comment_count%></span></div>
+								</a>
+							</div>
+							<div class="box-flex">
+								<a href="javascript:;">
+									<div class="com-icon"><i class="iconfont icon-liulan"></i><span><%ain.views%></span></div>
+								</a>
+							</div>
+						</div>
+					</section>
+			<%/each%>
+			<% else %>
+			<div class="no-div-message">
+				<i class="iconfont icon-biaoqingleiben"></i>
+				<p>亲，此处没有文章～！</p>
+			</div>
+			<%/if%>
+			</script>
+			</div>
+			<!-- 文章end -->
+		</div>
+					<div class="mask-filter-div"></div>
+	</div>
+	</body>
+
+
+	<script>
+		function change_like_number(id) {
+			if($("#red" + id).hasClass("active")){
+				$("#red" + id).removeClass("active");
+			}else{
+				$("#red" + id).addClass("active");
+			}
+			var isclick = document.getElementById('isclick').value;
+			$("#isclick").val(new Date().getTime());
+			if(isclick < (new Date().getTime()-1000)) {
+				$.ajax({
+					type: "post",
+					url: "{url('article/index/like')}",
+					data: {article_id: id},
+					dataType: "json",
+					success: function (data) {
+						$("#like_num" + id).html(data.like_num);
+						$("#islike" + id).val(data.is_like);
+					}
+				});
+			}
+
+		}
+	</script>
+<script>
+	var url = ROOT_URL + 'index.php?m=article';
+	var infinite = $('.article_info').infinite({url: url, template: 'j-product'});
+	var swiper_nav = new Swiper('.shopping-list-nav', {
+		scrollbarHide: true,
+		slidesPerView: 'auto',
+		centeredSlides: false,
+		grabCursor: true
+	});
+	//搜索
+	$(".btn-submit").click(function (){
+		keyword = $("input[name=infokeyword]").val();
+		if (keyword ||typeof(keyword) == "undefined")
+		{
+			infinite.onload('keyword='+keyword);
+		}else{
+			d_messages('请输入搜索关键字');
+		}
+	})
+
+	$('.shopping-list-nav li').on('click', function(e) {
+		var category = $(this).attr('category');
+		var index = $(".shopping-list-nav li").index(this);
+		$(this).siblings().removeClass("active");
+		$('.shopping-abs .swiper-slide li').removeClass("active");
+
+		$(".div"+category).addClass("active");
+
+		swiper_nav.slideTo(index, 1000, false);//切换到第一个slide，速度为1秒
+		infinite.onload('cat_id='+category);
+
+	})
+
+	$('.shopping-abs .swiper-slide li').on('click', function(e) {
+		var index = $(".shopping-abs .swiper-slide li").index(this);
+		$('.shopping-list-nav li').eq(index).trigger('click');
+		$(".j-shopping-menu").removeClass("active");
+		$(".mask-filter-div").removeClass("show")
+	});
+
+	$(".article-li-select").click(function(){
+		$(".j-shopping-menu").removeClass("nav-active");
+		$(".mask-filter-div").removeClass("show");
+	});
+</script>
+
+</html>

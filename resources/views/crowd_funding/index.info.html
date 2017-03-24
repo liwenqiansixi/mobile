@@ -1,0 +1,513 @@
+{include file="page_header"}
+<div class="con goods">
+		<div class="ect-bg">
+			<header class="dis-box header-menu-1 b-color color-whie goods-fixed goods-fixed-raise ts-3">
+				<a class="" href="javascript:history.go(-1)">
+					<div class="goods-left-jiat"><i class="iconfont icon-jiantou is-con"></i></div>
+				</a>
+				<div class="box-flex">
+					<ul class="dis-box goods-header-nav-box goods-header-nav-box-raise">
+						<li class="box-flex">
+							<a class="hover" href="javascript:;"><label>商品</label></a>
+						</li>
+						<li class="box-flex">
+							<a href="{url('properties',array('id'=> $goods.id))}"><label>详情</label></a>
+						</li>
+						<li class="box-flex">
+							<a href="{url('comment',array('id'=> $goods.id))}"><label>评论</label></a>
+						</li>
+					</ul>
+				</div>
+				<a class="" href="javascript:;">
+					<div class="goods-left-jiat"><i class="iconfont icon-gengduo  is-con"></i></div>
+				</a>
+				<div class="goods-nav ts-3">
+					<ul class="goods-nav-box">
+						<a href="{url('crowd_funding/index/index')}">
+							<li><i class="iconfont icon-shequ "></i>微筹广场</li>
+						</a>
+
+						<a href="{url('user/crowd/order')}">
+							<li><i class="iconfont icon-dingdan"></i>微筹订单</li>
+						</a>
+						<a href="{url('user/crowd/index')}">
+							<li style="border:none"><i class="iconfont icon-geren"></i>微筹中心</li>
+						</a>
+					</ul>
+				</div>
+			</header>
+		</div>
+		<div class="goods-photo j-show-goods-img">
+			<span class="goods-num" id="goods-num"><span id="g-active-num"></span>/<span id="g-all-num"></span></span>
+			<div class="swiper-wrapper">
+				<li class="swiper-slide tb-lr-center" id="img-photo-box"><img src="{$goods.title_img}" /></li>
+			</div>
+			<!-- Add Pagination -->
+			<div class="swiper-pagination"></div>
+		</div>
+
+		<!--raise-list-->
+		<section class="raise-list-default">
+			<div class="dis-box raise-header padding-all b-color-f">
+				<div class="raise-admin-left">
+					<div class="raise-admin-img"><img src="{$init.img}"></div>
+				</div>
+				<div class="box-flex"><label class="color-red f-06">{$init.name}</label></div>
+
+				<div class="box-flex raise-goods-btn-box">
+					<label class="fr color-whie f-04 raise-button-1 text-c ">
+						{if isset($basic_info.kf_appkey) && !empty($basic_info.kf_appkey)}
+                            <a class="box-flex" href="{url('chat/index/index', array('goods_id'=> $goods.goods_id))}">咨询</a>
+                        {elseif isset($basic_info.meiqia) && !empty($basic_info.meiqia)}
+                            <a class="box-flex" href="https://static.meiqia.com/dist/standalone.html?eid={$basic_info.meiqia}">咨询</a>
+                        {else}
+                            {if $basic_info.kf_type}
+                            <a class="box-flex" href="http://www.taobao.com/webww/ww.php?ver=3&touid={$basic_info.kf_ww}&siteid=cntaobao&status=1&charset=utf-8">咨询</a>
+                            {else}
+                            <a class="box-flex" href="http://wpa.qq.com/msgrd?v=3&uin={$basic_info.kf_qq}&site=qq&menu=yes">咨询</a>
+                            {/if}                           
+                        {/if}
+
+						
+						</label></div>
+			</div>
+			<div class="b-color-f raise-cont m-top08">
+				<h4 class="col-3 f-07">{$goods.title}</h4>
+				<p class=" dis-box g-p-tthree m-top06">
+					<span class="box-flex text-right">
+									{if $goods.result == 2}
+									 项目完成
+									 {else}
+									 还剩:<label class="color-red">{$goods.shenyu_time}</label>天
+									 {/if}
+								</span>
+				</p>
+				<div class="raise-progressBar dis-box">
+					<p class="wrap box-flex">
+						<span class="bar" style="width:{$goods.baifen_bi}%;"><i class="color"></i></span>
+					</p>
+					<p class="txt">{$goods.baifen_bi}%</p>
+				</div>
+			</div>
+
+		</section>
+		<section class="b-color-f m-top1px">
+			<ul class="user-money-list g-s-i-title-1 dis-box text-center my-dingdan raise-dateil-list">
+				<div class="box-flex">
+					<li>
+						<h4 class="ellipsis-one"><i class="iconfont icon-iconfontqizhi my-img-size col-9"></i></h4>
+						<p class="t-remark3">目标资金</p>
+						<p class="f-08 color-red">{$goods.amount}<em class="f-02 col-9">元</em></p>
+
+					</li>
+				</div>
+				<div class="box-flex">
+					<li>
+						<h4 class="ellipsis-one"><i class="iconfont icon-jinqian my-img-size col-9"></i></h4>
+						<p class="t-remark3">已筹资金</p>
+						<p class="f-08 color-red">{$goods.join_money}<em class="f-02 col-9">元</em></h4>
+
+					</li>
+				</div>
+				<div class="box-flex">
+					<li>
+						<h4 class="ellipsis-one"><i class="iconfont icon-geren my-img-size col-9"></i></h4>
+						<p class="t-remark3">支持人数</p>
+						<p class="f-08 color-red">{$goods.join_num}<em class="f-02 col-9">人</em></p>
+
+					</li>
+				</div>
+			</ul>
+		</section>
+		<section class="m-top1px padding-all b-color-f goods-promotion">
+			<a href="{url('properties',array('id'=> $goods.id))}">
+				<div class="t-remark text-c color-red"><label>查看项目详情</label> <i class="iconfont icon-jiantouyou"></i></div>
+			</a>
+		</section>
+		<section class="m-top08 goods-evaluation rsise_detail-time" style="display:none">
+			<div class="dis-box padding-all b-color-f  g-evaluation-title">
+				<label class="col-3 f-06">发货时间</label>
+			</div>
+			<div class="m-top1px b-color-f g-evaluation-con">
+				<p class=" dis-box g-p-tthree"><span class="box-flex text-left f-05">运费: <em class="col-3">顺丰包邮</em></span></p>
+				<p class=" dis-box g-p-tthree"><span class="box-flex text-left f-03">发货时间: <em class="col-3">7月18日</em></span></p>
+			</div>
+		</section>
+		<section class="m-top08 goods-evaluation rsise_detail-time">
+			<div class="dis-box padding-all b-color-f  g-evaluation-title">
+				<label class="col-3 f-06">方案回报</label>
+			</div>
+			{foreach $goods_arr as $good}
+			<div class="dis-box raise-detail-return m-top1px b-color-f">
+				<div class="left">
+					<div class="raise-return-img"><img src="{$good.img}"></div>
+				</div>
+				<div class="box-flex">
+					<h4 class="col-3 f-05">支持<em class="color-red">{$good.price}</em>元
+							{if $good.wuxian}
+							<em class="fr col-9 f-03"><em class="color-red">{$good.wuxian}</em></em>
+							{else}
+							<em class="fr col-9 f-03">剩余<em class="color-red">{$good.shenyu_ren}</em>份</em>
+							{/if}
+							</h4>
+					<p class="col-7 f-04">{$good.content}</p>
+					<h4 class="col-3 f-03">回报时间：项目成功{$good.return_time}天内</h4>
+				</div>
+			</div>
+			{/foreach}
+		</section>
+
+		<section id="n-goods" class="goods-info of-hidden ect-tab j-goods-info j-ect-tab ts-3 p-t0 m-top08">
+			<div class="hd j-tab-title tab-title b-color-f of-hidden n-fixed-none">
+				<ul class="dis-box">
+					<li class="box-flex f-06 active">用户评论</li>
+					<li class="box-flex f-06">ta的支持者</li>
+					<li class="box-flex f-06">项目动态</li>
+				</ul>
+			</div>
+			<div id="j-tab-con" class="tab-con swiper-container-horizontal swiper-container-autoheight raise-list-default">
+				<div class="swiper-wrapper">
+					<section class="swiper-slide swiper-slide-active">
+						<!--{if $topic_list}-->
+						<a href="{url('comment',array('id'=> $goods.id))}">
+							<div class="dis-box padding-all b-color-f  g-evaluation-title">
+								<label class="t-remark g-t-temark">用户评价</label>
+								<div class="box-flex t-goods1"></div>
+								<div class="t-goods1"><span class="t-jiantou">更多评论<i class="iconfont icon-jiantou tf-180"></i></span></div>
+							</div>
+						</a>
+						{foreach $topic_list as $vo}
+						<div class="m-top1px">
+							<div class="dis-box raise-header padding-all b-color-f">
+								<div class="raise-admin-left">
+									{if $vo.user_picture!=='' }
+									<div class="raise-admin-img"><img src="{$vo.user_picture}"></div>
+									{else}
+									<div class="raise-admin-img"><img src="{elixir('img/no_image.jpg')}"></div>
+									{/if}
+
+								</div>
+								<div class="box-flex"><label class="col-3">{$vo.user_name}</label></div>
+								<!-- <div class="box-flex col-7"><label class="fr f-04">支持<em class="color-red">30</em>元</label></div> -->
+							</div>
+							<div class="padding-all b-color-f g-evaluation-con ra">
+								<p class="f-05 col-4">{$vo.topic_content}</p>
+								<p class="t-remark m-top02 f-03 col-9">{$vo.time_past}</p>
+							</div>
+						</div>
+						{/foreach}
+						<!--{else}-->
+						<div class="no-div-raise flow-no-cart">
+							<i class="iconfont icon-biaoqingleiben"></i>
+							<p>亲，此处没有内容～！</p>
+						</div>
+						<!--{/if}-->
+					</section>
+
+					<section class="swiper-slide goods-info-attr swiper-slide-next">
+						<!--{if $backer_list}-->
+						{foreach $backer_list as $vo}
+						<div class="m-top1px">
+							<div class="dis-box raise-header padding-all b-color-f">
+								<div class="raise-admin-left">
+									{if $vo.user_picture!=='' }
+									<div class="raise-admin-img"><img src="{$vo.user_picture}"></div>
+									{else}
+									<div class="raise-admin-img"><img src="{elixir('img/no_image.jpg')}"></div>
+									{/if}
+								</div>
+								<div class="box-flex">
+									<label class="col-3" style="padding:0">{$vo.user_name}</label>
+									<span class="f-03 col-9">{$vo.add_time}</span>
+								</div>
+								<div class="box-flex col-7"><label class="fr f-04">支持<em class="color-red">{$vo.price}</em>元</label></div>
+							</div>
+						</div>
+						{/foreach}
+						<!--{else}-->
+						<div class="no-div-raise flow-no-cart">
+							<i class="iconfont icon-biaoqingleiben"></i>
+							<p>亲，此处没有内容～！</p>
+						</div>
+						<!--{/if}-->
+					</section>
+					<section class="swiper-slide goods-info-attr swiper-slide-next">
+						<div class="order-id-list order-id-list-raise">
+							<!--{if $progress}-->
+							<ul class="padding-all b-color-f">
+								{foreach $progress as $vo}
+								<li>
+									<p class="t-remark3">{$vo.add_time}</p>
+									<p class="t-remark m-top02">{$vo.progress}</p>
+
+									<div class="t-remark m-top02 n-comments-img">
+										{foreach $vo.img as $img}
+										<div>
+											<img src="{$img}">
+										</div>
+										{/foreach}
+									</div>
+								</li>
+								{/foreach}
+							</ul>
+							<!--{else}-->
+							<div class="no-div-raise flow-no-cart">
+								<i class="iconfont icon-biaoqingleiben"></i>
+								<p>亲，此处没有内容～！</p>
+							</div>
+							<!--{/if}-->
+						</div>
+					</section>
+				</div>
+			</div>
+		</section>
+	</div>
+	<!--悬浮btn star-->
+	<section class="filter-btn dis-box">
+		<a class="filter-btn-kefu filter-btn-a" onClick="collect({$goods.id})"><span class="raise-heart j-heart {if $goods_collect == 1}active{/if}" id="ECS_COLLECT"><i class="ts-2"></i><em class="ts-2">关注</em></span></a>
+		{if $goods.result == 2}
+		<a class="btn-submit2 box-flex j-goods-attr ">项目结束</a>
+		{else}
+		<a class="btn-submit box-flex j-goods-attr j-show-div-1">支持</a>
+		{/if}
+		<a class="filter-btn-kefu filter-btn-a raise-fengxian j-fengxiang-box"><i class="iconfont icon-fenxiang"></i><em>分享</em></a>
+	</section>
+	<div class="fengxiang-img-box "><img src="{elixir('img/fengxiang.png')}" class="img"></div>
+	<div class="fengxing-bg "></div>
+	<!--商品属性弹出层star-->
+	<div class="mask-filter-div"></div>
+	<form id="formid" action="{url('checkout')}" class="fl" method="post" name="ECS_FORMBUY" id="ECS_FORMBUY">
+		<div class="show-time-con ts-3 b-color-1 j-filter-show-div">
+			<section class="goods-show-title of-hidden padding-all b-color-f raise-bot-br">
+				<h3 class="fl g-c-title-h3">方案回报</h3>
+				<i class="iconfont icon-guanbi2 show-div-guanbi fr"></i>
+			</section>
+			<section class="s-g-list-con swiper-scroll swiper-container-vertical swiper-container-free-mode raise-goods-list">
+				<div class="swiper-wrapper">
+					<div class="swiper-slide select-two raise-goods-list-box swiper-slide-active ">
+						<ul class="j-get-one">
+
+							{foreach $goods_arr as $key=>$good}
+							<li class="ect-select">
+
+								<label rec-id="{$good.id}" rec-number="{$good.shenyu_ren}" rec-limit="{$good.limit}" class="ts-1 ">		
+											<input style="display:none"  id="cp_{$good.id}" type="radio" name="spec_{$key}" value="{$good.id}" {if $key == 0}checked{/if} onclick="changePrice()" />
+											<div class="dis-box raise-detail-return m-top1px b-color-f raise-goods-active">
+												<div class="left">
+													<div class="raise-return-img"><img src="{$good.img}"></div>
+												</div>
+												<div class="box-flex">
+													<h4 class="col-3 f-05">支持<em class="color-red">{$good.price}</em>元 
+													{if $good.wuxian}
+													<em class="fr col-9 f-03"><em class="color-red">{$good.wuxian}</em></em>
+													{else}
+													<em class="fr col-9 f-03">剩余<em class="color-red">{$good.shenyu_ren}</em>份</em>
+													{/if}</h4>
+													<p class="col-7 f-03">{$good.content}</p>
+													<h4 class="col-3 f-03">回报时间：项目成功{$good.return_time}天内</h4>
+												</div>
+											</div>																									
+										<i class="fr iconfont icon-gou ts-1 raise-goods-right"></i>
+										</label>
+							</li>
+							{/foreach}
+						</ul>
+						<!-- <div class="padding-all">
+									<h4 class="t-remark">数量</h4>
+									<div class="div-num dis-box m-top08">
+										<a class="num-less" onclick="changePrice(1)"></a>
+										<input onclick="c_value()" class="box-flex" type="number" name="number" id="number" value="1">
+										<a class="num-plus" onclick="changePrice(3)"></a>
+									</div>
+								</div> -->
+					</div>
+					<div class="swiper-scrollbar"></div>
+
+				</div>
+			</section>
+			<section class="filter-btn f-checkout-filter-btn dis-box">
+				<span class="box-flex t-remark">合计: <em class="t-first" id="ECS_GOODS_AMOUNT">请选择</em></span>
+				<a onclick="c_value()" type="button" class="btn-submit box-flex	">确定</a>
+				<input type="hidden" name="pid" value="{$goods.id}">
+				<input type="hidden" name="id" value="">
+				<input class="box-flex" type="hidden" name="number" id="number" value="1">
+			</section>
+		</div>
+	</form>
+
+	<div class="div-messages"></div>
+	<div class="filter-top" id="scrollUp">
+		<i class="iconfont icon-jiantou "></i>
+	</div>
+	<div class="raise-bg-box ts-3 active"></div>
+	<div class="goods-scoll-bg"></div>
+	<!--悬浮菜单e-->
+				<script>
+					$(function() {
+						$(".j-fengxiang-box").click(function(){
+								document.addEventListener("touchmove", handler, false);
+							$(".fengxiang-img-box").addClass("active");
+							$(".fengxing-bg").addClass("active");
+						});
+							$(".fengxing-bg").click(function(){
+								document.removeEventListener("touchmove", handler, false);
+							$(".fengxiang-img-box").removeClass("active");
+							$(".fengxing-bg").removeClass("active");
+						});
+					/*相册控制*/
+					var imgWhidth=document.getElementById('img-photo-box');				
+						imgWhidth.style.width = document.body.offsetWidth + 'px';
+						imgWhidth.style.height = document.body.offsetWidth + 'px';
+						window.onresize = function() {
+								imgWhidth.style.width = document.body.offsetWidth + 'px';
+								imgWhidth.style.height = document.body.offsetWidth + 'px';
+							}
+	
+					});	
+					/*商品详情相册切换*/
+					var swiper = new Swiper('.goods-photo', {
+						paginationClickable: true,
+						onInit: function(swiper) {
+							document.getElementById("g-active-num").innerHTML = swiper.activeIndex + 1;
+							document.getElementById("g-all-num").innerHTML = swiper.slides.length;
+						},
+						onSlideChangeStart: function(swiper) {
+							document.getElementById("g-active-num").innerHTML = swiper.activeIndex + 1;
+						}
+					});
+					/*店铺信息商品滚动*/
+					var swiper = new Swiper('.j-g-s-p-con', {
+						scrollbarHide: true,
+						slidesPerView: 'auto',
+						centeredSlides: false,
+						grabCursor: true
+					});
+					/*商品详情切换*/
+					var tabsSwiper = new Swiper('#j-tab-con', {
+						speed: 100,
+						noSwiping: true,
+						autoHeight: true,
+						onSlideChangeStart: function() {
+							$(".j-tab-title .active").removeClass('active')
+							$(".j-tab-title li").eq(tabsSwiper.activeIndex).addClass('active')
+						}
+					})
+					$(".j-tab-title li").on('touchstart mousedown', function(e) {
+						e.preventDefault()
+						$(".j-tab-title .active").removeClass('active')
+						$(this).addClass('active')
+						tabsSwiper.slideTo($(this).index())
+					})
+					$(".j-tab-title li").click(function(e) {
+						e.preventDefault()
+					})
+					
+					function c_value(){
+						var id='';
+						var number='';
+						var limit='';
+						$("label").each(function (){							
+							if($(this).hasClass("active")) {
+								id = $(this).attr("rec-id");
+								number = parseInt($(this).attr("rec-number"));
+								limit = parseInt($(this).attr("rec-limit"));
+							}							
+						})
+						if(id==''){
+							alert('请先择回报方案');
+							return false;
+						}
+						var qty = parseInt($("#number").val());	
+						if(limit > 0){
+							if(qty > number ){
+								alert('该方案已售罄，请选择其他方案');
+								return false;
+							}
+						}
+						$("input[name=id]").val(id);
+						document.getElementById("formid").submit();
+					}
+					
+					var goodsId ={$goods.id};
+					/**
+					 * 点选可选属性或改变数量时修改商品价格的函数
+					 */
+					function changePrice(type) {
+					
+						var qty = $("#number").val();
+						
+						if (type == 1) {
+							qty--;
+						}
+						if (type == 3) {
+							qty++;
+						}
+						if (qty <= 0) {
+							qty = 1;
+						}
+						if (!/^[0-9]*$/.test(qty)) {
+							qty = document.getElementById('back_number').value;
+						}	
+						
+						var id='';
+						$("label").each(function (){							
+							if($(this).hasClass("active")) {
+								id = $(this).attr("rec-id");
+							}							
+						})
+						$("#number").val(qty)
+						$.get('{url("price")}', {
+							'pid': goodsId,
+							'id':id,
+							'number': qty
+						}, function(data) {
+							changePriceResponse(data);
+						}, 'json');
+					}
+					/**
+					 * 接收返回的信息
+					 */
+					function changePriceResponse(res) {
+						if (res.err_msg.length > 0) {
+							document.getElementById('ECS_GOODS_AMOUNT').innerHTML = res.result;
+							alert(res.err_msg);
+						} else {
+							if (document.getElementById('ECS_GOODS_AMOUNT'))
+								document.getElementById('ECS_GOODS_AMOUNT').innerHTML = res.result;
+						}
+					}
+					//changePrice(2);
+					
+					/* *
+					 * 添加商品到关注
+					 */
+					function collect(goodsId) {
+						$.get('{url("addcollection")}', {
+							id: goodsId
+						}, function(data) {
+							collectResponse(data);
+						}, 'json');
+					}
+
+					/* *
+					 * 处理收藏商品的反馈信息
+					 */
+					function collectResponse(result) {
+						if (result.error == 0) {
+							if ($('#ECS_COLLECT').hasClass("active") > 0) {
+							 $('#ECS_COLLECT').removeClass("active");
+							} else {
+								$('#ECS_COLLECT').addClass("active")
+							}
+						}
+						if (result.error == 2) {
+							var returnVal = window.confirm("未登录不能使用收藏功能 \n是否登录");
+							if (returnVal) {
+								window.location.href = ROOT_URL + "index.php?m=user&c=login";
+							}
+						}
+					}
+
+				</script>
+	</body>
+</html>
